@@ -157,7 +157,7 @@ main {
   font-size: 16px;
 }
 
-.bground {
+#bground {
   display: none;
   position: fixed;
   z-index: 1;
@@ -296,7 +296,7 @@ input[data-error]::after {
   left: 21%;
   top: 19%;
 }
-.close {
+#close {
   position: absolute;
   right: 15px;
   top: 15px;
@@ -304,10 +304,14 @@ input[data-error]::after {
   height: 32px;
   opacity: 1;
   cursor: pointer;
-  transform: scale(0.7);
+  transform: scale(.7);
 }
-.close:before,
-.close:after {
+#close:hover {
+  background-color: red;
+  border-radius: 4px;
+}
+#close:before,
+#close:after {
   position: absolute;
   left: 15px;
   content: " ";
@@ -315,10 +319,10 @@ input[data-error]::after {
   width: 3px;
   background-color: #fff;
 }
-.close:before {
+#close:before {
   transform: rotate(45deg);
 }
-.close:after {
+#close:after {
   transform: rotate(-45deg);
 }
 .btn-submit,
