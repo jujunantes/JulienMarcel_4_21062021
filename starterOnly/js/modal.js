@@ -15,14 +15,16 @@ const fermeModalBtn = document.querySelectorAll("#close");
 
 // Evenements
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); // launch modal event
-fermeModalBtn.forEach((btn) => btn.addEventListener("click", fermeModal)); // Evenement ferme la modale
+document.addEventListener("click",
+  function(event) {
+    // ferme la modale si l'utilisateur clique hors d'elle ou sur sa croix de fermeture
+    if (event.target.matches("#bground") || event.target.matches("#close"))
+      modalbg.style.display = "none";
+  },
+  false
+)
 
 // launch modal form
 function launchModal() {
   modalbg.style.display = "block";
-}
-
-// ferme la modale
-function fermeModal() {
-  modalbg.style.display = "none";
 }

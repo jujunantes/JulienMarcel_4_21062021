@@ -14,7 +14,6 @@ body {
   margin: 0;
   display: flex;
   flex-direction: column;
-  background-image: url("background.png");
   font-family: var(--font-default);
   font-size: 18px;
   max-width: 1300px;
@@ -482,6 +481,21 @@ footer {
   padding-right: 2vw;
   margin: 0 20px;
 }
+
+/* mes clauses CSS */
+
+.formData p{
+  color: red;
+  font-size: .6rem;
+}
+
+.centrage {
+  margin: auto;
+  text-align: center;
+}
+
+/* --- fin de mes clauses CSS --- */
+
 @media screen and (max-width: 800px) {
   .hero-section {
     display: block;
