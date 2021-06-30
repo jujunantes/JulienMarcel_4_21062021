@@ -13,11 +13,9 @@ const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 const fermeModalBtn = document.querySelectorAll("#close");
 
-// launch modal event
-modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
-
-// Evenement ferme la modale
-fermeModalBtn.forEach(elt => elt.addEventListener("click", fermeModal));
+// Evenements
+modalBtn.forEach((btn) => btn.addEventListener("click", launchModal)); // launch modal event
+fermeModalBtn.forEach((btn) => btn.addEventListener("click", fermeModal)); // Evenement ferme la modale
 
 // launch modal form
 function launchModal() {
