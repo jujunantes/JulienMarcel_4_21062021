@@ -8,15 +8,16 @@ const tournois = document.getElementById("quantity");
 const conditions = document.getElementById("checkboxConditions");
 
 function validate() {
+    var validiteFormulaire = true;
 
     // Validation du prénom (min 2 chars, pas vide)
     let prenomEntre = prenom.value.trim();
     if (prenomEntre === "") {
 		document.getElementById("erreurPrenom").innerHTML = "Merci d'entrer un prénom";
-		return false;
+		validiteFormulaire = false;
 	} else if (prenomEntre.length < 2) {
 		document.getElementById("erreurPrenom").innerHTML = "Le prénom doit comporter au moins 2 lettres";
-		return false;
+		validiteFormulaire = false;
 	} else {
 		document.getElementById("erreurPrenom").innerHTML = "";
 	}
@@ -25,10 +26,10 @@ function validate() {
     let nomEntre = nom.value.trim();
     if (nomEntre === "") {
 		document.getElementById("erreurNom").innerHTML = "Merci d'entrer un nom";
-		return false;
+		validiteFormulaire = false;
 	} else if (nomEntre.length < 2) {
 		document.getElementById("erreurNom").innerHTML = "Le nom doit comporter au moins 2 lettres";
-		return false;
+		validiteFormulaire = false;
 	} else {
 		document.getElementById("erreurNom").innerHTML = "";
 	}
@@ -37,14 +38,14 @@ function validate() {
     let emailEntre = email.value.trim();
     if (emailEntre === "") {
 		document.getElementById("erreurEmail").innerHTML = "Merci d'entrer une adresse email";
-		return false;
+		validiteFormulaire = false;
 	} else {
         // source : https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
         if(/^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/.test(emailEntre)){
             document.getElementById("erreurEmail").innerHTML = "";
         } else {
             document.getElementById("erreurEmail").innerHTML = "Veuillez entrer une adresse email valide";
-		    return false;
+		    validiteFormulaire = false;
         }
 	}
 
@@ -52,7 +53,7 @@ function validate() {
     let dateEntree = naissance.value.trim();
     if (dateEntree === "") {
         document.getElementById("erreurNaissance").innerHTML = "Merci d'entrer une date de naissance";
-		return false;
+		validiteFormulaire = false;
     } else {
         var jeanneCalment = new Date(1875, 2, 21).toISOString().slice(0, 10);
         var maintenant = new Date().toISOString().slice(0, 10);
@@ -60,7 +61,7 @@ function validate() {
             document.getElementById("erreurNaissance").innerHTML = "";
         } else {
             document.getElementById("erreurNaissance").innerHTML = "Merci d'entrer une date valide";
-            return false;
+            validiteFormulaire = false;
         }
     }
 
@@ -68,39 +69,41 @@ function validate() {
     let tournoisEntres = tournois.value.trim();
     if (tournoisEntres === "") {
         document.getElementById("erreurTournois").innerHTML = "Merci de renseigner le nombre de tournois joués";
-		return false;
+		validiteFormulaire = false;
     } else {
         if ((tournoisEntres >= 0) && (tournoisEntres <= 99)) {
             document.getElementById("erreurTournois").innerHTML = "";
         } else {
             document.getElementById("erreurTournois").innerHTML = "Veuillez entrer un nombre entre 0 et 99 compris";
-		    return false;
+		    validiteFormulaire = false;
         }
     }
 
     // Validation de la ville du joueur
     let choixVille = document.querySelector('input[name = "location"]:checked');
-	if (choixVille != null) {
+	if (choixVille !== null) {
 		document.getElementById("erreurVille").innerHTML = "";
 	} else {
 		document.getElementById("erreurVille").innerHTML = "Veuillez choisir votre ville";
-		return false;
+		validiteFormulaire = false;
 	}
 
     // Validation des conditions (Elles doivent être acceptés pour que l'enregistrement soit effectué)
     if (!conditions.checked) {
 		document.getElementById("erreurConditions").innerHTML = "Veuillez accepter ces conditions pour valider votre inscription";
-		return false;
+		validiteFormulaire = false;
 	} else {
 		document.getElementById("erreurConditions").innerHTML = "";
 	}
 
-    return true;
+    return validiteFormulaire;
 }
 
-function validerFormulaire() {
+function validerFormulaire(event) {
     if(validate()){
-        formulaire.className = "centrage";
+        formulaire.style.minHeight = formulaire.clientHeight +"px"; // Pour que la modale conserve la même hauteur
+
+        formulaire.className = "centrage centrageVertical";
         formulaire.innerText = "Merci, votre inscription est validée !";
         // Ajoutons un bouton de fermeture
         const monBr = document.createElement("br");
@@ -109,8 +112,14 @@ function validerFormulaire() {
         formulaire.appendChild(monBr2);
         const monBouton = document.createElement("button");
         monBouton.innerHTML = "Fermer";
-        monBouton.className = "btn-signup modal-btn centrage";
+        monBouton.className = "btn-signup modal-btn centrage margeBouton";
         formulaire.appendChild(monBouton);
     }
-    else return false;
+    else {
+        event.preventDefault();
+        return false;
+    }
 }
+
+// On crée le gestionnaire d'événement interceptant le clic du bouton de soumission
+document.querySelector(".btn-submit").addEventListener("click", validerFormulaire);
