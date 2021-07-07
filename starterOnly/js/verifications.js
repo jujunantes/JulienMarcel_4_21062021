@@ -60,7 +60,7 @@ function validate() {
         if ((dateEntree > jeanneCalment) && (dateEntree < maintenant)) {
             document.getElementById("erreurNaissance").innerHTML = "";
         } else {
-            document.getElementById("erreurNaissance").innerHTML = "Merci d'entrer une date valide";
+            document.getElementById("erreurNaissance").innerHTML = "Merci d'entrer votre vraie date de naissance";
             validiteFormulaire = false;
         }
     }

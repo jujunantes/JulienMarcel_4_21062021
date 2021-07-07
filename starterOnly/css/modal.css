@@ -513,6 +513,10 @@ footer {
   margin-top: 2rem;
 }
 
+fieldset {
+  border: 0;
+}
+
 /* --- fin de mes clauses CSS --- */
 
 @media screen and (max-width: 800px) {
